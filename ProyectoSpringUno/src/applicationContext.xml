@@ -8,11 +8,17 @@
     http://www.springframework.org/schema/context 
     http://www.springframework.org/schema/context/spring-context-3.1.xsd
 ">
+	<context:property-placeholder location="classpath:datosEmpresasa.properties"/>
 	<!-- creacion de la dependencia  -->
 	<bean id="miInforme" class="com.jovan.ioc.Informe"></bean>
 	
-	<bean id="miEmpleado" class="com.jovan.ioc.DirectorEmpleado">
+	<bean id="miEmpleado" class="com.jovan.ioc.DirectorEmpleado"
+		   init-method="init"
+		   destroy-method="metodofinal">
 		<constructor-arg ref="miInforme"></constructor-arg>
+		<property name="email" value="${email}"></property>
+		<property name="nombreEmpresa" value="${nombreEmpresa}"></property>
+		
 	</bean>
 	<bean id="secretario" class="com.jovan.ioc.SecretarioEmpleado">
 		<property name="informe" ref="miInforme"></property>
